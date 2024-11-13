@@ -8,7 +8,7 @@ import {
 import { tasks } from "@/server/db/schema";
 
 export const taskRouter = createTRPCRouter({
-  ping: publicProcedure.query(({ }) => {
+  ping: publicProcedure.query(({}) => {
     return {
       greeting: `PONG`,
     };
@@ -23,7 +23,7 @@ export const taskRouter = createTRPCRouter({
       });
     }),
 
-  getLatest: protectedProcedure.query(async ({ ctx: { db, session } }) => {
+  getLatest: protectedProcedure.query(async ({ ctx: { db } }) => {
     const task = await db.query.tasks.findFirst({
       orderBy: (tasks, { desc }) => [desc(tasks.createdAt)],
     });
